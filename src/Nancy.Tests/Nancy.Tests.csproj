@@ -67,6 +67,13 @@
     <Compile Include="Unit\DefaultModuleActivatorFixture.cs" />
     <Compile Include="Unit\HeadResponseFixture.cs" />
     <Compile Include="Unit\Hosting\HancyHandlerFixture.cs" />
+    <Compile Include="Unit\IOC\ContainerFixture.cs" />
+    <Compile Include="Unit\IOC\IBar.cs" />
+    <Compile Include="Unit\IOC\IFoo.cs" />
+    <Compile Include="Unit\IOC\RegistrationAdapters\CollectionAdapterTestFixture.cs" />
+    <Compile Include="Unit\IOC\RegistrationAdapters\ConcreteAdapterTestFixture.cs" />
+    <Compile Include="Unit\IOC\RegistrationAdapters\GenericFuncAdapterTestFixture.cs" />
+    <Compile Include="Unit\IOC\RegistrationAdapters\OpenGenericAdapterTestFixture.cs" />
     <Compile Include="Unit\NancyEngineFixture.cs" />
     <Compile Include="Unit\RequestFixture.cs" />
     <Compile Include="Unit\Routing\NoMatchingRouteFixture.cs" />
