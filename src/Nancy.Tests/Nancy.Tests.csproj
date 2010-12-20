@@ -57,6 +57,7 @@
     <Compile Include="Fakes\FakeNancyModuleWithoutBasePath.cs" />
     <Compile Include="Fakes\FakeRoute.cs" />
     <Compile Include="Fakes\FakeRouteResolver.cs" />
+    <Compile Include="Fakes\FakeViewEngineRegistry.cs" />
     <Compile Include="Specifications\Handling a HEAD request.cs" />
     <Compile Include="Specifications\Handling a DELETE request.cs" />
     <Compile Include="Specifications\Handling a GET request.cs" />
@@ -76,7 +77,9 @@
     <Compile Include="Unit\IOC\RegistrationAdapters\ConcreteAdapterTestFixture.cs" />
     <Compile Include="Unit\IOC\RegistrationAdapters\GenericFuncAdapterTestFixture.cs" />
     <Compile Include="Unit\IOC\RegistrationAdapters\OpenGenericAdapterTestFixture.cs" />
+    <Compile Include="Unit\Hosting\NancyApplicationFixture.cs" />
     <Compile Include="Unit\NancyEngineFixture.cs" />
+    <Compile Include="Unit\NancyModuleFixture.cs" />
     <Compile Include="Unit\RequestFixture.cs" />
     <Compile Include="Unit\Routing\NoMatchingRouteFixture.cs" />
     <Compile Include="Unit\ResponseFixture.cs" />
