@@ -42,6 +42,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AppDomainModuleLocator.cs" />
+    <Compile Include="Configuration\AssemblyLoader.cs" />
+    <Compile Include="Configuration\INancyRegistrar.cs" />
+    <Compile Include="Configuration\NancyBootstapper.cs" />
+    <Compile Include="Configuration\TypeFinder.cs" />
+    <Compile Include="Configuration\TypeFinderExtensions.cs" />
     <Compile Include="DefaultModuleActivator.cs" />
     <Compile Include="Extensions\NancyExtensions.cs" />
     <Compile Include="Extensions\RouteDescriptionExtensions.cs" />
