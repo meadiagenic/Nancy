@@ -12,7 +12,6 @@
         private readonly INancyModuleLocator locator;
         private readonly IRouteResolver resolver;
         private readonly INancyApplication application;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NancyEngine"/> class.
         /// </summary>

@@ -3,12 +3,12 @@
     using System;
     using Nancy.IOC;
     using System.Collections.Generic;
+    using Nancy.Routing;
 
-    public abstract class NancyBootstapper
+    public abstract class NancyBootstrapper
     {
         TypeFinder _finder = new TypeFinder();
         
-
         public void UseContainer(INancyContainer container)
         {
             Container = container;
@@ -32,15 +32,20 @@
             get { return new AssemblyLoader(_finder); }
         }
 
-
-        public void Bootstrap()
+        public INancyApplication Bootstrap()
         {
             var container = Container;
 
-            foreach (var registrar in Registrars)
+            if (!container.Contains<INancyEngine>())
             {
-                
+                container.RegisterIfNone<INancyModuleLocator, AppDomainModuleLocator>();
+                container.RegisterIfNone<IModuleActivator, DefaultModuleActivator>();
+                container.RegisterIfNone<IRouteResolver, RouteResolver>();
+                container.RegisterIfNone<INancyEngine, NancyEngine>();
             }
+            container.RegisterIfNone<INancyContainer>(container);
+            container.RegisterIfNone<INancyApplication, NancyApplication>();
+            return container.Resolve<INancyApplication>();
         }
     }
 }

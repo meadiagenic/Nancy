@@ -66,10 +66,10 @@
     <Compile Include="Specifications\Handling a PUT request.cs" />
     <Compile Include="Specifications\RequestSpec.cs" />
     <Compile Include="Unit\Configuration\ITypeFoo.cs" />
+    <Compile Include="Unit\Configuration\NancyBootstrapperTestFixture.cs" />
     <Compile Include="Unit\Configuration\TypeFinderTestFixture.cs" />
     <Compile Include="Unit\DefaultModuleActivatorFixture.cs" />
     <Compile Include="Unit\HeadResponseFixture.cs" />
-    <Compile Include="Unit\Hosting\HancyHandlerFixture.cs" />
     <Compile Include="Unit\IOC\ContainerFixture.cs" />
     <Compile Include="Unit\IOC\IBar.cs" />
     <Compile Include="Unit\IOC\IFoo.cs" />

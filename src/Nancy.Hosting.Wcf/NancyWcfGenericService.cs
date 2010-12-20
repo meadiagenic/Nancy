@@ -11,23 +11,14 @@
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class NancyWcfGenericService
     {
-        private readonly NancyEngine engine;
+        private static readonly INancyApplication application = NancyApplication.Bootstrap();
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NancyWcfGenericService"/> class.
         /// </summary>
         public NancyWcfGenericService()
-            : this(new AppDomainModuleLocator(new DefaultModuleActivator()))
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NancyWcfGenericService"/> class.
-        /// </summary>
-        /// <param name="moduleLocator">An <see cref="INancyModuleLocator"/> instance that will be used by Nancy to decect available modules.</param>
-        public NancyWcfGenericService(INancyModuleLocator moduleLocator)
-        {
-            engine = new NancyEngine(moduleLocator, new RouteResolver(), new NancyApplication());
         }
         
         [WebInvoke(UriTemplate = "*", Method = "*")]
@@ -36,6 +27,8 @@
             var webContext = WebOperationContext.Current;
 
             var nancyRequest = CreateNancyRequestFromIncomingWebRequest(webContext.IncomingRequest, requestBody);
+            var engine = application.GetEngine();
+
             var nancyResponse = engine.HandleRequest(nancyRequest);
 
             SetNancyResponseToOutgoingWebResponse(webContext.OutgoingResponse, nancyResponse);

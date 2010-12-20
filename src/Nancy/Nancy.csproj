@@ -43,17 +43,19 @@
     </Compile>
     <Compile Include="AppDomainModuleLocator.cs" />
     <Compile Include="Configuration\AssemblyLoader.cs" />
+    <Compile Include="Configuration\DefaultBootstrapper.cs" />
+    <Compile Include="Configuration\EmptyBootstrapper.cs" />
     <Compile Include="Configuration\INancyRegistrar.cs" />
-    <Compile Include="Configuration\NancyBootstapper.cs" />
+    <Compile Include="Configuration\NancyBootstrapper.cs" />
     <Compile Include="Configuration\TypeFinder.cs" />
     <Compile Include="Configuration\TypeFinderExtensions.cs" />
     <Compile Include="DefaultModuleActivator.cs" />
     <Compile Include="Extensions\NancyExtensions.cs" />
     <Compile Include="Extensions\RouteDescriptionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="HeadResponse.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Hosting\NancyHandler.cs" />
     <Compile Include="Hosting\NancyHttpRequestHandler.cs" />
     <Compile Include="IModuleActivator.cs" />
     <Compile Include="IOC\IInstanceCreator.cs" />

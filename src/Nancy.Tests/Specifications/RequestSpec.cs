@@ -12,7 +12,7 @@
 
         protected RequestSpec()
         {
-            engine = new NancyEngine(new AppDomainModuleLocator(new DefaultModuleActivator()), new RouteResolver(), new NancyApplication());
+            engine = new NancyEngine(new AppDomainModuleLocator(new DefaultModuleActivator()), new RouteResolver(), NancyApplication.Bootstrap());
         }
 
         protected static IRequest ManufactureGETRequestForRoute(string route)

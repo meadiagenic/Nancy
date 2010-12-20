@@ -7,5 +7,6 @@ namespace Nancy
     {
         Func<string, object, Action<Stream>> GetTemplateProcessor(string extension);
         Func<string, object, Action<Stream>> DefaultProcessor { get; }
+        INancyEngine GetEngine();
     }
 }
