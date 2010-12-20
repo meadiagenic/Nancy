@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
 
     public class AssemblyLoader
@@ -20,6 +21,13 @@
             {
                 _typeFinder.AddAssembly(Path.GetFileNameWithoutExtension(file));
             }
+            return this;
+        }
+
+        public AssemblyLoader ReferencedAssemblies()
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
             return this;
         }
     }
