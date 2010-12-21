@@ -48,34 +48,6 @@
             fooType.Count().ShouldEqual(1);
         }
 
-        [Fact]
-        public void InBinFolder_Returns_All_Dlls()
-        {
-            WriteDomainAssemblies();
-
-            var tf = new TypeFinder();
-            var loader = new AssemblyLoader(tf);
-            loader.InBinFolder();
-            tf.ShouldNotBeNull();
-            tf.Assemblies.Count().ShouldEqual(6);
-
-            foreach (var a in tf.Assemblies)
-            {
-                Trace.WriteLine(a.FullName);
-            }
-
-            WriteDomainAssemblies();
-        }
-
-        private static void WriteDomainAssemblies()
-        {
-            Trace.WriteLine("-- Begin AppDomain.Assemblies");
-            Trace.WriteLine("Total: " + AppDomain.CurrentDomain.GetAssemblies().Count());
-            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                Trace.WriteLine(a.FullName);
-            }
-            Trace.WriteLine("-- End AppDomain.Assemblies");
-        }
+        
     }
 }

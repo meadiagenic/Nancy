@@ -72,7 +72,10 @@
 
         public void AddAssembly(Assembly assembly)
         {
-            _assemblies.Add(assembly);
+            if (!_assemblies.Contains(assembly))
+            {
+                _assemblies.Add(assembly);
+            }
         }
 
         public void AddAssembly(string assemblyName)

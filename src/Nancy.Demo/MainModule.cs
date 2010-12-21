@@ -12,7 +12,7 @@ namespace Nancy.Demo
         public Module()
         {
             Get["/"] = x => {
-                return "This is the root. Visit /static, /razor, /nhaml or /ndjango!";
+                return "This is the root. Visit <a href=\"/static\">/static</a>, <a href=\"/razor\">/razor</a>, <a href=\"/nhaml\">/nhaml</a> or <a href=\"/ndjango\">/ndjango!</a>";
             };
             
             Get["/test"] = x => {

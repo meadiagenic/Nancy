@@ -28,9 +28,39 @@ using Xunit;
             engine.ShouldNotBeNull();
             engine.ShouldBeOfType<NancyEngine>();
         }
+
+        [Fact]
+        public void BootStrapper_Can_Auto_Resolve_New_Registrations()
+        {
+            var bootstrapper = new TestBootStrapper();
+            bootstrapper.Registrations.Add<IBootStrapperFoo>();
+
+            var application = bootstrapper.Bootstrap();
+            var foo = application.Container.Resolve<IBootStrapperFoo>();
+            foo.ShouldNotBeNull();
+            foo.ShouldBeOfType<TestBootStrapperFoo>();
+        }
+
+        [Fact]
+        public void BootStrapper_Will_Load_Components_From_Nancy_Core()
+        {
+            var bootstrapper = new TestBootStrapper().Bootstrap();
+
+            var foo = bootstrapper.Container.Resolve<INancyEngine>();
+            foo.ShouldNotBeNull();
+            foo.ShouldBeOfType<NancyEngine>();
+        }
     }
 
     public class TestBootStrapper : NancyBootstrapper
+    {
+    }
+
+    public interface IBootStrapperFoo
+    {
+    }
+
+    public class TestBootStrapperFoo : IBootStrapperFoo
     {
     }
 }

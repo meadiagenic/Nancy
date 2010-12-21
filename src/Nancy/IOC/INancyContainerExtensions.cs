@@ -28,6 +28,11 @@
             container.Register(typeof(TService), instance);
         }
 
+        public static void Register<TService>(this INancyContainer container, Type implementationType)
+        {
+            container.Register(typeof(TService), implementationType);
+        }
+
         public static void Register(this INancyContainer container, Type serviceType, Func<INancyContainer, object> factory)
         {
             container.Register(string.Empty, serviceType, factory);

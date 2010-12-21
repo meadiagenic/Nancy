@@ -1,9 +1,13 @@
-﻿namespace Nancy.Configuration
-{
-    using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Nancy.IOC;
 
+namespace Nancy.Configuration
+{
     public interface INancyRegistrar
     {
-        Type ServiceType { get; }
+        void Register(INancyContainer container);
     }
 }

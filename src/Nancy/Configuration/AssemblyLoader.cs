@@ -27,7 +27,10 @@
         public AssemblyLoader ReferencedAssemblies()
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
+            foreach (var assembly in assemblies)
+            {
+                _typeFinder.AddAssembly(assembly);
+            }
             return this;
         }
     }

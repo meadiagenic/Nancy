@@ -2,6 +2,7 @@
 {
     using System;
     using Nancy.IOC;
+    using System.Linq;
     using System.Collections.Generic;
     using Nancy.Routing;
 
@@ -19,12 +20,18 @@
         {
             get
             {
-                return _container ?? new NancyContainer();
+                return _container = _container ?? new NancyContainer();
             }
             private set
             {
                 _container = value;
             }
+        }
+
+        private RegistrationList _registrations;
+        public RegistrationList Registrations
+        {
+            get { return _registrations = _registrations ?? new RegistrationList(); }
         }
 
         public AssemblyLoader ForAssemblies
@@ -36,16 +43,46 @@
         {
             var container = Container;
 
-            if (!container.Contains<INancyEngine>())
+            var registrationList = Registrations;
+            registrationList.Add<INancyRegistrar>();
+            registrationList.Add<INancyComponent>();
+            ProcessRegistrationList(registrationList, _finder);
+            
+            var localRegistrations = new RegistrationList();
+            localRegistrations.Add<INancyRegistrar>();
+            localRegistrations.Add<INancyComponent>();
+            ProcessRegistrationList(localRegistrations, new TypeFinder(typeof(NancyBootstrapper).Assembly));
+
+            var registrations = container.Resolve<IEnumerable<INancyRegistrar>>();
+
+            if (registrations != null && registrations.Count() > 0)
             {
-                container.RegisterIfNone<INancyModuleLocator, AppDomainModuleLocator>();
-                container.RegisterIfNone<IModuleActivator, DefaultModuleActivator>();
-                container.RegisterIfNone<IRouteResolver, RouteResolver>();
-                container.RegisterIfNone<INancyEngine, NancyEngine>();
+                foreach (var registration in registrations)
+                {
+                    registration.Register(container);
+                }
             }
+
             container.RegisterIfNone<INancyContainer>(container);
             container.RegisterIfNone<INancyApplication, NancyApplication>();
             return container.Resolve<INancyApplication>();
+        }
+
+        private void ProcessRegistrationList(RegistrationList registrationList, TypeFinder finder)
+        {
+            foreach (var registration in registrationList)
+            {
+                var serviceType = registration.ServiceType;
+                var handler = registration.Handler;
+                var typeFilter = registration.TypeFilter;
+
+                var registrationTypes = finder.Types.Where(type => typeFilter(type, serviceType));
+
+                foreach (Type type in registrationTypes)
+                {
+                    handler(this.Container, type);
+                }
+            }
         }
     }
 }

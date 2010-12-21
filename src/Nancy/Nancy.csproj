@@ -45,8 +45,12 @@
     <Compile Include="Configuration\AssemblyLoader.cs" />
     <Compile Include="Configuration\DefaultBootstrapper.cs" />
     <Compile Include="Configuration\EmptyBootstrapper.cs" />
+    <Compile Include="Configuration\INancyComponent.cs" />
     <Compile Include="Configuration\INancyRegistrar.cs" />
     <Compile Include="Configuration\NancyBootstrapper.cs" />
+    <Compile Include="Configuration\NancyEngineRegistrar.cs" />
+    <Compile Include="Configuration\RegistrationData.cs" />
+    <Compile Include="Configuration\RegistrationList.cs" />
     <Compile Include="Configuration\TypeFinder.cs" />
     <Compile Include="Configuration\TypeFinderExtensions.cs" />
     <Compile Include="DefaultModuleActivator.cs" />
