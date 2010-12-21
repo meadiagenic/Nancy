@@ -53,6 +53,8 @@
     <Compile Include="Configuration\RegistrationList.cs" />
     <Compile Include="Configuration\TypeFinder.cs" />
     <Compile Include="Configuration\TypeFinderExtensions.cs" />
+    <Compile Include="Cookies\NancyCookie.cs" />
+    <Compile Include="Cookies\INancyCookie.cs" />
     <Compile Include="DefaultModuleActivator.cs" />
     <Compile Include="Extensions\NancyExtensions.cs" />
     <Compile Include="Extensions\RouteDescriptionExtensions.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="IOC\ReuseScopes\ReuseScope.cs" />
     <Compile Include="IOC\ReuseScopes\SingletonScope.cs" />
     <Compile Include="INancyApplication.cs" />
+    <Compile Include="INancyModuleLocator.cs" />
     <Compile Include="IResponseFormatter.cs" />
     <Compile Include="IViewEngine.cs" />
     <Compile Include="IViewEngineRegistry.cs" />
@@ -92,7 +95,6 @@
     <Compile Include="INancyEngine.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="NancyEngine.cs" />
-    <Compile Include="INancyModuleLocator.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="NotFoundResponse.cs" />
     <Compile Include="Routing\IRoute.cs" />

@@ -1,10 +1,7 @@
 ﻿namespace Nancy
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Nancy.Extensions;
+    using System;    
+    using System.Linq;    
     using Nancy.Routing;
 
     public class NancyEngine : INancyEngine
@@ -58,7 +55,7 @@
                 if (method.ToUpperInvariant() == "HEAD")
                 {
                     method = "GET";
-                }                
+                }                                
                 if (modules.ContainsKey(method))
                 {
                     var resolvedRoute = this.resolver.GetRoute(request, modules[method], application);

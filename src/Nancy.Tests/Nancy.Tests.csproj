@@ -79,6 +79,7 @@
     <Compile Include="Unit\IOC\RegistrationAdapters\GenericFuncAdapterTestFixture.cs" />
     <Compile Include="Unit\IOC\RegistrationAdapters\OpenGenericAdapterTestFixture.cs" />
     <Compile Include="Unit\Hosting\NancyApplicationFixture.cs" />
+    <Compile Include="Unit\NancyCookieFixture.cs" />
     <Compile Include="Unit\NancyEngineFixture.cs" />
     <Compile Include="Unit\NancyModuleFixture.cs" />
     <Compile Include="Unit\RequestFixture.cs" />
