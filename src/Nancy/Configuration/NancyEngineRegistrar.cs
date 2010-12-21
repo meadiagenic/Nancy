@@ -13,7 +13,6 @@ namespace Nancy.Configuration
         {
             if (!container.Contains<INancyEngine>())
             {
-                container.RegisterIfNone<INancyModuleLocator, AppDomainModuleLocator>();
                 container.RegisterIfNone<IModuleActivator, DefaultModuleActivator>();
                 container.RegisterIfNone<IRouteResolver, RouteResolver>();
                 container.RegisterIfNone<INancyEngine, NancyEngine>();

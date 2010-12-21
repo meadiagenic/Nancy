@@ -50,7 +50,7 @@ namespace Nancy.Hosting
         {
             foreach (var key in response.Headers.Keys)
             {
-                foreach (var value in response.Headers[key])
+                foreach (string value in response.Headers[key])
                 {
                     context.Response.AddHeader(key, value);
                 }

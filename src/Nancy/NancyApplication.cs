@@ -23,12 +23,12 @@ namespace Nancy
             var tf = new TypeFinder();
             var types = tf.TypesImplementing<NancyBootstrapper>().ConcreteClasses().CanCreateInstance();
             var bootstrapperType = types.FirstOrDefault() ?? typeof(DefaultBootstrapper);
-            return Activator.CreateInstance(bootstrapperType) as NancyBootstrapper;   
+            return System.Activator.CreateInstance(bootstrapperType) as NancyBootstrapper;
         }
 
         public static void UseBootstrapper<T>() where T : NancyBootstrapper, new()
         {
-            _bootstrapper = Activator.CreateInstance<T>();
+            _bootstrapper = System.Activator.CreateInstance<T>();
         }
 
         public static void BootstrapWith(Action<NancyBootstrapper> bootstrapper)
@@ -50,7 +50,7 @@ namespace Nancy
         public NancyApplication(INancyContainer container)
         {
             Container = container;
-            this.activator = container.Resolve<IModuleActivator>;
+            this.activator = container.Resolve<IModuleActivator>();
             var types = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
                          from type in assembly.GetTypes()
                          where !type.IsAbstract

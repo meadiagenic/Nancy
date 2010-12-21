@@ -41,7 +41,6 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="AppDomainModuleLocator.cs" />
     <Compile Include="Configuration\AssemblyLoader.cs" />
     <Compile Include="Configuration\DefaultBootstrapper.cs" />
     <Compile Include="Configuration\EmptyBootstrapper.cs" />
