@@ -3,10 +3,11 @@ namespace Nancy.Hosting
     using System.Web;
     using Routing;
     using Extensions;
+    using Nancy.Configuration;
 
     public class NancyHttpRequestHandler : IHttpHandler
     {
-        private readonly static INancyApplication application = NancyApplication.Bootstrap();
+        private readonly static INancyApplication application = NancyBootstrapper.BootstrapApplication();
 
         public bool IsReusable
         {
@@ -48,12 +49,9 @@ namespace Nancy.Hosting
 
         private static void SetHttpResponseHeaders(HttpContextBase context, Response response)
         {
-            foreach (var key in response.Headers.Keys)
+            foreach (var pair in response.Headers)
             {
-                foreach (string value in response.Headers[key])
-                {
-                    context.Response.AddHeader(key, value);
-                }
+                context.Response.Headers.Add(pair.Key, pair.Value);
             }
         }
         //protected virtual INancyModuleLocator CreateModuleLocator()

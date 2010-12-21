@@ -6,12 +6,13 @@
     using System.ServiceModel.Web;
     using Nancy.Extensions;
     using Nancy.Routing;
+    using Nancy.Configuration;
 
     [ServiceContract]
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class NancyWcfGenericService
     {
-        private static readonly INancyApplication application = NancyApplication.Bootstrap();
+        private static readonly INancyApplication application = NancyBootstrapper.BootstrapApplication();
         
 
         /// <summary>

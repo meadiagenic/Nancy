@@ -69,7 +69,6 @@
     <Compile Include="Unit\Configuration\ITypeFoo.cs" />
     <Compile Include="Unit\Configuration\NancyBootstrapperTestFixture.cs" />
     <Compile Include="Unit\Configuration\TypeFinderTestFixture.cs" />
-    <Compile Include="Unit\DefaultModuleActivatorFixture.cs" />
     <Compile Include="Unit\HeadResponseFixture.cs" />
     <Compile Include="Unit\IOC\ContainerFixture.cs" />
     <Compile Include="Unit\IOC\IBar.cs" />

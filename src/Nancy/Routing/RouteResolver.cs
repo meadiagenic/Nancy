@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Text.RegularExpressions;
     using Nancy.Extensions;
+    using Nancy.IOC;
 
     public class RouteResolver : IRouteResolver
     {
@@ -33,8 +34,8 @@
             {
                 return new NoMatchingRouteFoundRoute(request.Uri);
             }
-
-            var instance = application.Activator.CreateInstance(selected.Meta.Type);
+            var instance = application.Container.Resolve<NancyModule>(selected.Meta.TypeName);
+            //var instance = application.Activator.CreateInstance(selected.Meta.Type);
             instance.Application = application;
             instance.Request = request;
             var action = instance.GetRoutes(selected.Description.Method)[selected.Description.Path];

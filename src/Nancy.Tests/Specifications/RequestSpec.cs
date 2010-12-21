@@ -1,6 +1,7 @@
 ﻿namespace Nancy.Tests.Specifications
 {    
     using Nancy.Routing;
+    using Nancy.IOC;
 
     public abstract class RequestSpec
     {
@@ -10,7 +11,7 @@
 
         protected RequestSpec()
         {
-            engine = new NancyEngine(new NancyApplication(new DefaultModuleActivator()), new RouteResolver(), new NancyApplication());
+            engine = new NancyEngine(new RouteResolver(), new NancyApplication(new NancyContainer()));
         }
 
         protected static IRequest ManufactureGETRequestForRoute(string route)

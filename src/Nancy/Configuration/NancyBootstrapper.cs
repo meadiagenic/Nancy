@@ -5,9 +5,24 @@
     using System.Linq;
     using System.Collections.Generic;
     using Nancy.Routing;
+    using Nancy.Extensions;
 
     public abstract class NancyBootstrapper
     {
+        public static INancyApplication BootstrapApplication()
+        {
+            var typeFinder = new TypeFinder();
+            var bootStrapperType = typeFinder
+                .TypesImplementing<NancyBootstrapper>()
+                .ConcreteClasses()
+                .CanCreateInstance()
+                .FirstOrDefault() ?? typeof(DefaultBootstrapper);
+            var bootStrapper = Activator.CreateInstance(bootStrapperType) as NancyBootstrapper;
+
+            if (bootStrapper != null) return bootStrapper.Bootstrap();
+            throw new InvalidOperationException("Can't find NancyBootstrapper.");
+        }
+
         TypeFinder _finder = new TypeFinder();
         
         public void UseContainer(INancyContainer container)

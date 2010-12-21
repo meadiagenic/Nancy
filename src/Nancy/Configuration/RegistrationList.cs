@@ -31,7 +31,7 @@ namespace Nancy.Configuration
 
         public RegistrationList Add<TService>(Func<Type, Type, bool> typeFilter, Action<INancyContainer, Type> handler)
         {
-            Add(new RegistrationData() { ServiceType = typeof(TService), Handler = handler, TypeFilter = typeFilter });
+            Add(new RegistrationData() { ServiceType = typeof(TService), Handler = handler, TypeFilter = typeFilter ?? defaultFilter });
             return this;
         }
     }

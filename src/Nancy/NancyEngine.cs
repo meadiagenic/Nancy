@@ -6,7 +6,6 @@
 
     public class NancyEngine : INancyEngine
     {
-        private readonly INancyModuleLocator locator;
         private readonly IRouteResolver resolver;
         private readonly INancyApplication application;
         /// <summary>
@@ -14,13 +13,8 @@
         /// </summary>
         /// <param name="locator">An <see cref="INancyModuleLocator"/> instance, that will be used to locate <see cref="NancyModule"/> instances</param>
         /// <param name="resolver">An <see cref="IRouteResolver"/> instance that will be used to resolve a route, from the modules, that matches the incoming <see cref="Request"/>.</param>
-        public NancyEngine(INancyModuleLocator locator, IRouteResolver resolver, INancyApplication application)
+        public NancyEngine(IRouteResolver resolver, INancyApplication application)
         {
-            if (locator == null)
-            {
-                throw new ArgumentNullException("locator", "The locator parameter cannot be null.");
-            }
-
             if (resolver == null)
             {
                 throw new ArgumentNullException("resolver", "The resolver parameter cannot be null.");
@@ -31,7 +25,6 @@
                 throw new ArgumentNullException("application", "The application parameter cannot be null.");
             }
 
-            this.locator = locator;
             this.resolver = resolver;
             this.application = application;
         }
@@ -48,7 +41,7 @@
                 throw new ArgumentNullException("request", "The request parameter cannot be null.");
             }
 
-            var modules = this.locator.GetModules();
+            var modules = this.application.ModuleMetas;
             if (modules.Any())
             {
                 var method = request.Method;

@@ -9,22 +9,22 @@ namespace Nancy.Tests.Unit
     using Nancy.Tests.Fakes;
     using Xunit;
     using Xunit.Extensions;
+    using Nancy.IOC;
 
     public class NancyEngineFixture
     {
         private readonly INancyEngine engine;
         private readonly IRouteResolver resolver;
-        private readonly INancyModuleLocator locator;
         private readonly INancyApplication application;
         private readonly IDictionary<string, IEnumerable<ModuleMeta>> modules;
 
         public NancyEngineFixture()
         {
-            this.modules = new NancyApplication(new DefaultModuleActivator()).GetModules();
-            this.locator = A.Fake<INancyModuleLocator>();
+
+            this.modules = new NancyApplication(new NancyContainer()).ModuleMetas;
             this.resolver = A.Fake<IRouteResolver>();
             this.application = A.Fake<INancyApplication>();
-            this.engine = new NancyEngine(this.locator, this.resolver, this.application);
+            this.engine = new NancyEngine(this.resolver, this.application);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace Nancy.Tests.Unit
         {
             // Given, When
             var exception =
-                Record.Exception(() => new NancyEngine(null, A.Fake<IRouteResolver>(), A.Fake<INancyApplication>()));
+                Record.Exception(() => new NancyEngine(A.Fake<IRouteResolver>(), A.Fake<INancyApplication>()));
 
             // Then
             exception.ShouldBeOfType<ArgumentNullException>();
@@ -43,7 +43,7 @@ namespace Nancy.Tests.Unit
         {
             // Given, When
             var exception =
-                Record.Exception(() => new NancyEngine(A.Fake<INancyModuleLocator>(), null, A.Fake<INancyApplication>()));
+                Record.Exception(() => new NancyEngine( null, A.Fake<INancyApplication>()));
 
             // Then
             exception.ShouldBeOfType<ArgumentNullException>();
@@ -54,7 +54,7 @@ namespace Nancy.Tests.Unit
         {
             // Given, When
             var exception =
-                Record.Exception(() => new NancyEngine(A.Fake<INancyModuleLocator>(),  A.Fake<IRouteResolver>(), null));
+                Record.Exception(() => new NancyEngine( A.Fake<IRouteResolver>(), null));
 
             // Then
             exception.ShouldBeOfType<ArgumentNullException>();
@@ -70,7 +70,7 @@ namespace Nancy.Tests.Unit
             this.engine.HandleRequest(request);
 
             // Then
-            A.CallTo(() => this.locator.GetModules()).MustHaveHappened();
+            A.CallTo(() => this.application.ModuleMetas).MustHaveHappened();
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace Nancy.Tests.Unit
             // Given
             var request = new Request("GET", "/");
 
-            A.CallTo(() => this.locator.GetModules()).Returns(new Dictionary<string, IEnumerable<ModuleMeta>>());
+            A.CallTo(() => this.application.ModuleMetas).Returns(new Dictionary<string, IEnumerable<ModuleMeta>>());
 
             // When
             var response = this.engine.HandleRequest(request);
@@ -95,7 +95,7 @@ namespace Nancy.Tests.Unit
             var request = new Request("GET", "/");
             
 
-            A.CallTo(() => this.locator.GetModules()).Returns(modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(modules);
 
             // When
             this.engine.HandleRequest(request);
@@ -119,8 +119,8 @@ namespace Nancy.Tests.Unit
         {
             // Given
             var request = new Request(verb, "/");
-            
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             this.engine.HandleRequest(request);
@@ -137,7 +137,7 @@ namespace Nancy.Tests.Unit
             var request = new Request("HEAD", "/");
 
 
-            A.CallTo(() => this.locator.GetModules()).Returns(modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(modules);
 
             // When
             this.engine.HandleRequest(request);
@@ -152,8 +152,8 @@ namespace Nancy.Tests.Unit
         {
             // Given
             var request = new Request("DELETE", "/");
-            
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             this.engine.HandleRequest(request);
@@ -168,7 +168,7 @@ namespace Nancy.Tests.Unit
             // Given
             var request = new Request("PUT", "/");
             
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             this.engine.HandleRequest(request);
@@ -183,7 +183,7 @@ namespace Nancy.Tests.Unit
             // Given
             var request = new Request("GET", "/");
 
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             this.engine.HandleRequest(request);
@@ -199,7 +199,7 @@ namespace Nancy.Tests.Unit
             // Given
             var request = new Request("NOTVALID", "/");
 
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             var response = this.engine.HandleRequest(request);
@@ -224,9 +224,9 @@ namespace Nancy.Tests.Unit
         {
             // Given
             var route = A.Fake<IRoute>();
-            var request = new Request("GET", "/");            
+            var request = new Request("GET", "/");
 
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
             A.CallTo(() => this.resolver.GetRoute(request, A<IEnumerable<ModuleMeta>>.Ignored.Argument, A<INancyApplication>.Ignored.Argument)).Returns(route);
 
             // When
@@ -246,7 +246,7 @@ namespace Nancy.Tests.Unit
             var descriptions = GetRouteDescriptions(request, this.modules);
 
             A.CallTo(() => route.Invoke()).Returns(expectedResponse);
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
             A.CallTo(() => this.resolver.GetRoute(request, A<IEnumerable<ModuleMeta>>.Ignored.Argument, A<INancyApplication>.Ignored.Argument)).Returns(route);
 
             // When
@@ -263,9 +263,9 @@ namespace Nancy.Tests.Unit
             var request = new Request("POST", "/fake/");
 
             var r = new FakeRouteResolver();
-            var e = new NancyEngine(this.locator, r, this.application);
+            var e = new NancyEngine( r, this.application);
 
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             e.HandleRequest(request);
@@ -281,9 +281,9 @@ namespace Nancy.Tests.Unit
             var request = new Request("POST", "/");
 
             var r = new FakeRouteResolver();
-            var e = new NancyEngine(this.locator, r, this.application);
+            var e = new NancyEngine( r, this.application);
 
-            A.CallTo(() => this.locator.GetModules()).Returns(this.modules);
+            A.CallTo(() => this.application.ModuleMetas).Returns(this.modules);
 
             // When
             e.HandleRequest(request);

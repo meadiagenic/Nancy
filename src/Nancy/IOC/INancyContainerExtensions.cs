@@ -15,7 +15,12 @@
 
         public static T Resolve<T>(this INancyContainer container)
         {
-            return (T)container.Resolve(string.Empty, typeof(T));
+            return container.Resolve<T>(string.Empty);
+        }
+
+        public static T Resolve<T>(this INancyContainer container, string name)
+        {
+            return (T)container.Resolve(name, typeof(T));
         }
 
         public static void Register(this INancyContainer container, Type serviceType, object instance)
