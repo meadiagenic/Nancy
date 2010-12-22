@@ -90,11 +90,24 @@
             container.RegisterSingleton(name, typeof(TService), typeof(TImplemenation));
         }
 
+        public static void RegisterSingleton<TService>(this INancyContainer container, Func<INancyContainer, object> factory)
+        {
+            container.RegisterSingleton(string.Empty, typeof(TService), factory);
+        }
+
         public static void RegisterSingletonIfNone<TService, TImplementation>(this INancyContainer container) where TImplementation : TService
         {
             if (!container.Contains<TService>())
             {
                 container.RegisterSingleton<TService, TImplementation>();
+            }
+        }
+
+        public static void RegisterSingletonIfNone<TService>(this INancyContainer container, Func<INancyContainer, object> factory)
+        {
+            if (!container.Contains<TService>())
+            {
+                container.RegisterSingleton<TService>(factory);
             }
         }
 

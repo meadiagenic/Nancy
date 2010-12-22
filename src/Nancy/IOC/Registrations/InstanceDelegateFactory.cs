@@ -11,7 +11,7 @@
         public static Func<INancyContainer, TService> CreateFactoryDelegate<TService>(this Type implementationType, NancyContainer container)
         {
             ConstructorInfo ctor = GetConstructor(implementationType, container);
-            if (ctor == null) throw new InvalidOperationException("No constructor with resolvable parameters was found.");
+            if (ctor == null) throw new InvalidOperationException(string.Format("No constructor with resolvable parameters was found for type '{0}'", implementationType.FullName));
 
             ParameterInfo[] parameters = ctor.GetParameters();
 

@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using Nancy.IOC;
+    using Nancy.ViewEngines;
 
     public class ViewEngineRegistryComponent : INancyComponent
     {
         public void AddRegistrations(RegistrationList registrations)
         {
             registrations.Add<IViewEngineRegistry>();
+            registrations.Add<IViewLocator>();
         }
 
         public void Initialize(INancyApplication application)

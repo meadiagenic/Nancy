@@ -3,24 +3,22 @@
     using System.Collections.Generic;
     using System.IO;
     using global::NDjango;
+    using global::NDjango.Interfaces;
 
     public class NDjangoViewEngine
     {
-        public NDjangoViewEngine() : this(new AspNetTemplateLocator())
-        {
-        }
-
-        public NDjangoViewEngine(IViewLocator viewTemplateLocator)
+        public NDjangoViewEngine(IViewLocator viewTemplateLocator, TemplateManagerProvider provider)
         {
             ViewTemplateLocator = viewTemplateLocator;
+            TemplateManagerProvider = provider;
         }
 
+        public TemplateManagerProvider TemplateManagerProvider { get; private set; }
         public IViewLocator ViewTemplateLocator { get; private set; }
 
         public ViewResult RenderView<TModel>(string viewTemplate, TModel model)
         {
-            var templateManagerProvider = new TemplateManagerProvider();
-            var manager = templateManagerProvider.GetNewManager();
+            var manager = TemplateManagerProvider.GetNewManager();
 
             var result = ViewTemplateLocator.GetTemplateContents(viewTemplate);
 

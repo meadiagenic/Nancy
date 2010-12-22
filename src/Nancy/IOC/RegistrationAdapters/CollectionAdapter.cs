@@ -32,7 +32,7 @@ namespace Nancy.IOC.RegistrationAdapters
                         var nc = c as NancyContainer;
                         if (nc != null)
                         {
-                            var registrations = nc.GetRegistrations(elementType, null);
+                            var registrations = nc.GetRegistrations(elementType, null).ToArray();
                             var elements = registrations.Select(r => r.GetInstance(nc)).ToArray();
                             var result = Array.CreateInstance(elementType, elements.Length);
                             elements.CopyTo(result, 0);

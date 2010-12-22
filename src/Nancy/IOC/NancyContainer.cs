@@ -13,9 +13,9 @@
 
         public NancyContainer()
         {
+            registrationAdapters.Add(new ConcreteAdapter());
             registrationAdapters.Add(new GenericFuncAdapter());
             registrationAdapters.Add(new CollectionAdapter());
-            registrationAdapters.Add(new ConcreteAdapter());
             registrationAdapters.Add(new OpenGenericAdapter());
         }
 

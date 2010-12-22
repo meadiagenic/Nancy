@@ -19,10 +19,6 @@ namespace Nancy.Hosting
             var engine = application.GetEngine();
             var httpContext = new HttpContextWrapper(context);
             var request = CreateNancyRequestFromHttpContext(httpContext);
-            //var engine = new NancyEngine(
-            //    CreateModuleLocator(),
-            //    new RouteResolver(),
-            //    application);
 
             var response = engine.HandleRequest(request);
 
