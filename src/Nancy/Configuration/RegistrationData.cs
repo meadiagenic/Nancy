@@ -9,7 +9,7 @@ namespace Nancy.Configuration
     public class RegistrationData
     {
         public Type ServiceType { get; set; }
-        public Action<INancyContainer, Type> Handler { get; set; }
+        public Action<INancyContainer, Type, Type> Handler { get; set; }
         public Func<Type, Type, bool> TypeFilter { get; set; }
     }
 }

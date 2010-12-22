@@ -61,7 +61,7 @@
             {
                 _scanned = true;
                 _types.Clear();
-                _types.AddRange(Assemblies.SelectMany(a => a.GetExportedTypes()));
+                _types.AddRange(Assemblies.SelectMany(x => x.GetExportedTypes()));
             }
         }
 
@@ -72,9 +72,10 @@
 
         public void AddAssembly(Assembly assembly)
         {
-            if (!_assemblies.Contains(assembly))
+            if (!_assemblies.Contains(assembly) && !assembly.FullName.Contains("System.") && !assembly.FullName.Contains("mscorlib") && !assembly.IsDynamic)
             {
                 _assemblies.Add(assembly);
+                _scanned = false;
             }
         }
 

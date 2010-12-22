@@ -9,10 +9,7 @@
     {
         public void AddRegistrations(RegistrationList registrations)
         {
-            registrations.Add<NancyModule>(null, (container, type) =>
-            {
-                container.Register(type.FullName, typeof(NancyModule), type);
-            });
+            registrations.Add<NancyModule>();
         }
 
         public void Initialize(INancyApplication application)

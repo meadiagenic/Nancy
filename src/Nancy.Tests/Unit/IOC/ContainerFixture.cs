@@ -81,6 +81,20 @@
         }
 
         [Fact]
+        public void WhenResolve_Is_Called_For_Strong_Factory_Strong_Object_Is_Returned()
+        {
+            using (var container = new NancyContainer())
+            {
+                container.Register<IFoo>(c => new Foo());
+
+                var foo = container.Resolve<IFoo>();
+                foo.ShouldNotBeNull();
+                foo.ShouldBeOfType<IFoo>();
+                foo.ShouldBeOfType<Foo>();
+            }
+        }
+
+        [Fact]
         public void Can_Register_And_Resolve_Multiple_Types()
         {
             using (var container = new NancyContainer())

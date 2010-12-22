@@ -18,7 +18,7 @@
         {
             if (Factory == null)
             {
-                Factory = ImplementationType.CreateFactoryDelegate(container);
+                Factory = ImplementationType.CreateFactoryDelegate<object>(container);
             }
             return Factory(container);
         }

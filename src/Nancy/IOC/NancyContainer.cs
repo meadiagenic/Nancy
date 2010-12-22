@@ -105,7 +105,7 @@
 
         public bool CanResolve(Type serviceType)
         {
-            return (registrations.Any(r => r.ServiceType == serviceType));
+            return (GetRegistrations(serviceType, null).Any());
         }
 
         

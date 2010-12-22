@@ -61,12 +61,9 @@
             var registrationList = Registrations;
             registrationList.Add<INancyRegistrar>();
             registrationList.Add<INancyComponent>();
-            ProcessRegistrationList(registrationList, _finder);
             
-            var localRegistrations = new RegistrationList();
-            localRegistrations.Add<INancyRegistrar>();
-            localRegistrations.Add<INancyComponent>();
-            ProcessRegistrationList(localRegistrations, new TypeFinder(typeof(NancyBootstrapper).Assembly));
+            _finder.AddAssembly(typeof(NancyBootstrapper).Assembly);
+            ProcessRegistrationList(registrationList, _finder);
 
             var registrations = container.Resolve<IEnumerable<INancyRegistrar>>();
 
@@ -78,9 +75,22 @@
                 }
             }
 
+            var componentRegistrations = new RegistrationList();
+            var components = container.Resolve<IEnumerable<INancyComponent>>();
+            foreach (var component in components)
+            {
+                component.AddRegistrations(componentRegistrations);
+            }
+            ProcessRegistrationList(componentRegistrations, _finder);
+
             container.RegisterIfNone<INancyContainer>(container);
-            container.RegisterIfNone<INancyApplication, NancyApplication>();
-            return container.Resolve<INancyApplication>();
+
+            var application = container.Resolve<INancyApplication>();
+            foreach (var component in components)
+            {
+                component.Initialize(application);
+            }
+            return application;
         }
 
         private void ProcessRegistrationList(RegistrationList registrationList, TypeFinder finder)
@@ -91,11 +101,11 @@
                 var handler = registration.Handler;
                 var typeFilter = registration.TypeFilter;
 
-                var registrationTypes = finder.Types.Where(type => typeFilter(type, serviceType));
+                var registrationTypes = finder.Types.Where(type => typeFilter(type, serviceType)).AsEnumerable();
 
                 foreach (Type type in registrationTypes)
                 {
-                    handler(this.Container, type);
+                    handler(this.Container, serviceType, type);
                 }
             }
         }

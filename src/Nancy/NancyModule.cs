@@ -3,6 +3,7 @@ namespace Nancy
     using System;
     using System.Collections.Generic;
     using System.IO;
+using Nancy.IOC;
     
     public abstract class NancyModule
     {
@@ -29,6 +30,14 @@ namespace Nancy
         /// Gets or sets an <see cref="INancyApplication"/> which represents the current application context
         /// </summary>
         public INancyApplication Application { get; set; }
+
+        public INancyContainer Container
+        {
+            get
+            {
+                return Application.Container;
+            }
+        }
 
         public IDictionary<string, Func<dynamic, Response>> Delete
         {

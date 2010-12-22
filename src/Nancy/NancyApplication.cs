@@ -16,7 +16,6 @@ namespace Nancy
         public NancyApplication(INancyContainer container)
         {
             this.Container = container;
-            
         }
 
         public IDictionary<string, Func<string, object, Action<Stream>>> TemplateProcessors
@@ -31,7 +30,12 @@ namespace Nancy
 
         public Func<string, object, Action<Stream>> GetTemplateProcessor(string extension)
         {
-            return this.templateProcessors.ContainsKey(extension) ? this.templateProcessors[extension] : null;
+            Func<string, object, Action<Stream>> processor;
+            if (!this.TemplateProcessors.TryGetValue(extension, out processor))
+            {
+                return null;
+            }
+            return processor;
         }
 
         public Func<string, object, Action<Stream>> DefaultProcessor

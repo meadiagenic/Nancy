@@ -16,7 +16,7 @@
 
         public IReuseScope Scope { get; private set; }
 
-        public object Instance { get; set; }
+        public virtual object Instance { get; set; }
 
         public virtual object GetInstance(NancyContainer container)
         {
@@ -35,5 +35,7 @@
 
         public abstract object CreateInstance(NancyContainer container);
 
+
+        
     }
 }

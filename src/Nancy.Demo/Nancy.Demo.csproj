@@ -64,7 +64,10 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="MainModule.cs" />
+    <Compile Include="Models\DefaultPackService.cs" />
+    <Compile Include="Models\IPackService.cs" />
     <Compile Include="Models\RatPack.cs" />
+    <Compile Include="Models\ServiceRegistrar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\razor.cshtml" />

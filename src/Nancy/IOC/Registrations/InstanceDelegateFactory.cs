@@ -8,7 +8,7 @@
 
     public static class InstanceDelegateFactory
     {
-        public static Func<INancyContainer, object> CreateFactoryDelegate(this Type implementationType, NancyContainer container)
+        public static Func<INancyContainer, TService> CreateFactoryDelegate<TService>(this Type implementationType, NancyContainer container)
         {
             ConstructorInfo ctor = GetConstructor(implementationType, container);
             if (ctor == null) throw new InvalidOperationException("No constructor with resolvable parameters was found.");
@@ -26,7 +26,7 @@
 
             NewExpression exp = Expression.New(ctor, arguments);
 
-            return Expression.Lambda<Func<INancyContainer, object>>(
+            return Expression.Lambda<Func<INancyContainer, TService>>(
                     exp,
                     new ParameterExpression[] { nancyContainer }
                 ).Compile();

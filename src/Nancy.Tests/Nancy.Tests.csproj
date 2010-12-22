@@ -67,7 +67,6 @@
     <Compile Include="Specifications\RequestSpec.cs" />
     <Compile Include="Unit\Configuration\AssemblyLoaderTestFixture.cs" />
     <Compile Include="Unit\Configuration\ITypeFoo.cs" />
-    <Compile Include="Unit\Configuration\NancyBootstrapperTestFixture.cs" />
     <Compile Include="Unit\Configuration\TypeFinderTestFixture.cs" />
     <Compile Include="Unit\HeadResponseFixture.cs" />
     <Compile Include="Unit\IOC\ContainerFixture.cs" />
@@ -78,6 +77,7 @@
     <Compile Include="Unit\IOC\RegistrationAdapters\GenericFuncAdapterTestFixture.cs" />
     <Compile Include="Unit\IOC\RegistrationAdapters\OpenGenericAdapterTestFixture.cs" />
     <Compile Include="Unit\Hosting\NancyApplicationFixture.cs" />
+    <Compile Include="Unit\IOC\Registrations\InstanceRegistrationTestFixture.cs" />
     <Compile Include="Unit\NancyCookieFixture.cs" />
     <Compile Include="Unit\NancyEngineFixture.cs" />
     <Compile Include="Unit\NancyModuleFixture.cs" />
@@ -94,6 +94,7 @@
       <Name>Nancy</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

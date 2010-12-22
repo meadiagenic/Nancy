@@ -10,6 +10,7 @@ namespace Nancy.Tests.Unit
     using Xunit;
     using Xunit.Extensions;
     using Nancy.IOC;
+    using Nancy.Configuration;
 
     public class NancyEngineFixture
     {
@@ -21,21 +22,10 @@ namespace Nancy.Tests.Unit
         public NancyEngineFixture()
         {
 
-            this.modules = new NancyApplication(new NancyContainer()).ModuleMetas;
-            this.resolver = A.Fake<IRouteResolver>();
             this.application = A.Fake<INancyApplication>();
+            this.modules = NancyBootstrapper.BootstrapApplication().ModuleMetas;
+            this.resolver = A.Fake<IRouteResolver>();
             this.engine = new NancyEngine(this.resolver, this.application);
-        }
-
-        [Fact]
-        public void Should_throw_argumentnullexception_when_created_with_null_locator()
-        {
-            // Given, When
-            var exception =
-                Record.Exception(() => new NancyEngine(A.Fake<IRouteResolver>(), A.Fake<INancyApplication>()));
-
-            // Then
-            exception.ShouldBeOfType<ArgumentNullException>();
         }
 
         [Fact]

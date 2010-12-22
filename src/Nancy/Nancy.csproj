@@ -46,6 +46,7 @@
     <Compile Include="Configuration\EmptyBootstrapper.cs" />
     <Compile Include="Configuration\INancyComponent.cs" />
     <Compile Include="Configuration\INancyRegistrar.cs" />
+    <Compile Include="Configuration\NancyApplicationRegistrar.cs" />
     <Compile Include="Configuration\NancyBootstrapper.cs" />
     <Compile Include="Configuration\NancyEngineRegistrar.cs" />
     <Compile Include="Configuration\NancyModuleComponent.cs" />

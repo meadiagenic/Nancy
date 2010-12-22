@@ -13,6 +13,23 @@ namespace Nancy.IOC.Registrations
             Instance = instance;
         }
 
+        private WeakReference instanceWrapper;
+        public override object Instance
+        {
+            get
+            {
+                if (instanceWrapper != null && instanceWrapper.IsAlive)
+                {
+                    return instanceWrapper.Target;
+                }
+                return null;
+            }
+            set
+            {
+                instanceWrapper = new WeakReference(value);
+            }
+        }
+
         public override object GetInstance(NancyContainer container)
         {
             return Instance;
